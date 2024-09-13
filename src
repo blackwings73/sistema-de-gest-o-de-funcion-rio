@@ -1,0 +1,55 @@
+# GestaoFuncionarios
+
+Este repositório contém um esquema de banco de dados para gerenciamento de funcionários, departamentos e salários. O banco de dados é projetado para armazenar informações sobre funcionários, seus departamentos e salários ao longo do tempo.
+
+## Estrutura do Banco de Dados
+
+O banco de dados possui as seguintes tabelas:
+
+- **Departamentos**
+  - `id_departamento` (INT, PK, AUTO_INCREMENT): Identificador único do departamento.
+  - `nome` (VARCHAR(50)): Nome do departamento.
+
+- **Funcionarios**
+  - `id_funcionario` (INT, PK, AUTO_INCREMENT): Identificador único do funcionário.
+  - `nome` (VARCHAR(100)): Nome do funcionário.
+  - `cargo` (VARCHAR(50)): Cargo do funcionário.
+  - `salario` (DECIMAL(10,2)): Salário do funcionário.
+  - `id_departamento` (INT, FK): Referência ao departamento do funcionário.
+
+- **Salarios**
+  - `id_salario` (INT, PK, AUTO_INCREMENT): Identificador único do registro de salário.
+  - `id_funcionario` (INT, FK): Referência ao funcionário.
+  - `data` (DATE): Data do registro de salário.
+  - `valor` (DECIMAL(10,2)): Valor do salário registrado.
+
+## Scripts SQL
+
+Os scripts SQL no repositório realizam as seguintes operações:
+
+1. **Criação do Banco de Dados e Tabelas**:
+   - `gestaofuncionarios.sql`: Cria o banco de dados, tabelas e define as relações entre elas.
+
+2. **Inserção de Dados**:
+   - Adiciona alguns dados iniciais para Departamentos, Funcionários e Salários.
+
+3. **Consultas**:
+   - Exemplos de consultas para obter informações sobre funcionários e salários.
+
+4. **Atualizações e Exclusões**:
+   - Atualiza dados existentes e exclui registros de acordo com condições específicas.
+
+## Uso
+
+1. Clone este repositório.
+2. Execute o script `gestaofuncionarios.sql` em seu banco de dados MySQL para criar o esquema e inserir dados.
+3. Execute as consultas SQL fornecidas para interagir com o banco de dados.
+
+## Contribuições
+
+Se você deseja contribuir para este projeto, por favor, faça um fork do repositório e envie um pull request com suas alterações.
+
+## Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
+
