@@ -1,0 +1,71 @@
+drop database if exists gestaofuncionarios;
+CREATE DATABASE GestaoFuncionarios;
+USE GestaoFuncionarios;
+
+CREATE TABLE Departamentos (
+    id_departamento INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Funcionarios (
+    id_funcionario INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    cargo VARCHAR(50) NOT NULL,
+    salario DECIMAL(10,2) NOT NULL,
+    id_departamento INT,
+    FOREIGN KEY (id_departamento) REFERENCES Departamentos(id_departamento)
+);
+
+CREATE TABLE Salarios (
+    id_salario INT PRIMARY KEY AUTO_INCREMENT,
+    id_funcionario INT,
+    data DATE,
+    valor DECIMAL(10,2),
+    FOREIGN KEY (id_funcionario) REFERENCES Funcionarios(id_funcionario)
+);
+
+INSERT INTO Departamentos (nome) VALUES 
+('Recursos Humanos'), 
+('Desenvolvimento'), 
+('Marketing');
+
+INSERT INTO Funcionarios (nome, cargo, salario, id_departamento) VALUES 
+('Ana Silva', 'Analista de RH', 3000.00, 1), 
+('João Souza', 'Desenvolvedor', 5000.00, 2), 
+('Maria Oliveira', 'Designer', 4000.00, 3);
+
+INSERT INTO Salarios (id_funcionario, data, valor) VALUES 
+(1, '2023-01-01', 3000.00), 
+(2, '2023-01-01', 5000.00), 
+(3, '2023-01-01', 4000.00);
+
+SELECT f.nome AS 'Funcionário', d.nome AS 'Departamento'
+FROM Funcionarios f
+JOIN Departamentos d ON f.id_departamento = d.id_departamento;
+
+
+SELECT d.nome AS 'Departamento', SUM(f.salario) AS 'Salário Total'
+FROM Funcionarios f
+JOIN Departamentos d ON f.id_departamento = d.id_departamento
+GROUP BY d.nome;
+
+SELECT * FROM Salarios
+WHERE id_funcionario = 1;
+
+UPDATE Funcionarios
+SET salario = 3500.00
+WHERE id_funcionario = 1;
+
+UPDATE Departamentos
+SET nome = 'Recursos Humanos e Administrativo'
+WHERE id_departamento = 1;
+
+DELETE FROM Salarios
+WHERE id_funcionario = 1;
+
+DELETE FROM Funcionarios
+WHERE id_funcionario = 1;
+
+DELETE FROM Departamentos
+WHERE id_departamento = 3
+AND NOT EXISTS (SELECT 1 FROM Funcionarios WHERE id_departamento = 3);
